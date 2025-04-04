@@ -85,6 +85,15 @@ export const signIn = async (req, res) => {
 
 }
 
-export const signOut = async (req, res) => {
+export const signOut = (req, res) => {
+    // Clear the token on the client side (for example, you can send a response)
+    // If using cookies to store the JWT, you can clear it like this:
 
-}
+    res.clearCookie('token');  // If you're using cookies to store the JWT
+
+    // Alternatively, just send a response to inform the client that the sign out is successful.
+    return res.status(200).json({
+        message: 'User logged out successfully',
+        success: true,
+    });
+};

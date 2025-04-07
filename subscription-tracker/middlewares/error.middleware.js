@@ -1,34 +1,39 @@
 const errorMiddleware = (err, req, res, next) => {
     try {
-        let error = { ...err, message: err.message };
+        let errorResponse = { ...err, message: err.message };
+
         if (err.name === 'ValidationError') {
-            error.statusCode = 400;
-            error.message = Object.values(err.errors).map((value) => value.message).join(', ');
+            errorResponse.statusCode = 400;
+            errorResponse.message = Object.values(err.errors).map((value) => value.message).join(', ');
         }
         if (err.name === 'CastError') {
-            error.statusCode = 400;
-            error.message = `Invalid ${err.path}: ${err.value}`;
+            errorResponse.statusCode = 400;
+            errorResponse.message = `Invalid ${err.path}: ${err.value}`;
         }
         if (err.code === 11000) {
-            error.statusCode = 400;
-            error.message = `Duplicate field value entered`;
+            errorResponse.statusCode = 400;
+            errorResponse.message = `Duplicate field value entered`;
         }
         if (err.name === 'JsonWebTokenError') {
-            error.statusCode = 401;
-            error.message = 'Invalid token. Please log in again';
+            errorResponse.statusCode = 401;
+            errorResponse.message = 'Invalid token. Please log in again';
         }
         if (err.name === 'TokenExpiredError') {
-            error.statusCode = 401;
-            error.message = 'Your token has expired. Please log in again';
+            errorResponse.statusCode = 401;
+            errorResponse.message = 'Your token has expired. Please log in again';
         }
-        res.status(error.statusCode || 500).json({
-            status: 'error',
-            message: error.message || 'Internal Server Error',
-        });
-    } catch (error) {
-        next(error);
-    }
 
+        res.status(errorResponse.statusCode || 500).json({
+            status: 'error',
+            message: errorResponse.message || 'Internal Server Error',
+        });
+    } catch (catchError) {
+        console.error('Erro no middleware de erro:', catchError);
+        res.status(500).json({
+            status: 'error',
+            message: 'Internal Server Error',
+        });
+    }
 };
 
 export default errorMiddleware;

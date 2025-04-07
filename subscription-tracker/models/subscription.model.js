@@ -72,25 +72,36 @@ const subscriptionSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
+// Pre-save hook to auto-set renewalDate and update status
 subscriptionSchema.pre('save', function (next) {
+    // Only if renewalDate is not manually set
     if (!this.renewalDate) {
-        const renewalPeriods = {
-            daily: 1,
-            weekly: 7,
-            monthly: 1,
-            yearly: 12,
-        };
-        this.renewalDate = new Date(this.startDate);
-        this.renewalDate.setDate(this.renewalDate.getDate() + renewalPeriods[this.frequency]);
+        const start = new Date(this.startDate);
+
+        switch (this.frequency) {
+            case 'daily':
+                start.setDate(start.getDate() + 1);
+                break;
+            case 'weekly':
+                start.setDate(start.getDate() + 7);
+                break;
+            case 'monthly':
+                start.setMonth(start.getMonth() + 1);
+                break;
+            case 'yearly':
+                start.setFullYear(start.getFullYear() + 1);
+                break;
+        }
+
+        this.renewalDate = start;
     }
-    // Automatically update the status if renewal date is in the past
+
     if (this.renewalDate < new Date()) {
         this.status = 'canceled';
     }
 
-
-})
+    next(); // ✅ important to proceed
+});
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
-
 export default Subscription;

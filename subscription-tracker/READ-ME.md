@@ -45,7 +45,7 @@
 
 - [ ] **GET** `/` - Get all subscriptions (requires authentication)  
 - [ ] **GET** `/:id` - Get a subscription by ID (requires authentication)  
-- [ ] **POST** `/` - Create a new subscription (requires authentication)  
+- [x] **POST** `/` - Create a new subscription (requires authentication)  
 - [ ] **GET** `/user/:id` - Get all subscriptions for a user (requires authentication)  
 - [ ] **PUT** `/:id` - Update subscription by ID (requires authentication)  
 - [ ] **DELETE** `/:id` - Delete a subscription by ID (requires authentication)  

@@ -43,11 +43,11 @@
 
 ### Subscription Routes (`/api/v1/subscriptions`)
 
-- [ ] **GET** `/` - Get all subscriptions (requires authentication)  
-- [ ] **GET** `/:id` - Get a subscription by ID (requires authentication)  
+- [x] **GET** `/` - Get all subscriptions (requires authentication)  
+- [x] **GET** `/:id` - Get a subscription by ID (requires authentication)  
 - [x] **POST** `/` - Create a new subscription (requires authentication)  
-- [ ] **GET** `/user/:id` - Get all subscriptions for a user (requires authentication)  
-- [ ] **PUT** `/:id` - Update subscription by ID (requires authentication)  
-- [ ] **DELETE** `/:id` - Delete a subscription by ID (requires authentication)  
-- [ ] **PUT** `/:id/cancel` - Cancel a subscription (requires authentication)  
-- [ ] **GET** `/:id/upcoming-renewals` - Get upcoming renewals for a subscription (requires authentication)  
+- [X] **GET** `/user/:id` - Get all subscriptions for a user (requires authentication)  
+- [x] **PUT** `/:id` - Update subscription by ID (requires authentication)  
+- [x] **DELETE** `/:id` - Delete a subscription by ID (requires authentication)  
+- [x] **PUT** `/:id/cancel` - Cancel a subscription (requires authentication)  
+- [x] **GET** `/:id/upcoming-renewals` - Get upcoming renewals for a subscription (requires authentication)  

@@ -1,3 +1,41 @@
+# 📦 Subscription Tracker API
+
+A RESTful API para gerenciamento de assinaturas (como Netflix, Spotify, etc). Permite aos usuários cadastrarem, consultarem e receberem lembretes sobre suas assinaturas.
+
+## 🚀 Tecnologias Utilizadas
+
+- **Node.js**: Runtime JavaScript para construção da API.
+- **MongoDB + Mongoose**: Banco de dados NoSQL com ODM para modelagem dos dados.
+- **Arcjet**: Middleware de segurança para proteção da aplicação.
+- **Nodemailer**: Envio de emails para lembretes de renovação.
+- **Upstash Workflows**: Automação de tarefas, como envio de notificações e lembretes.
+- **JWT (JsonWebToken)**: Autenticação e autorização baseada em tokens.
+
+## 🔐 Autenticação e Autorização
+
+A API utiliza JWT para autenticar usuários e proteger rotas. Apenas usuários autenticados podem criar ou visualizar suas próprias assinaturas.
+
+## 📬 Funcionalidade de Lembrete
+
+O sistema agenda lembretes automáticos de renovação de assinatura utilizando **Upstash Workflows**, que busca assinaturas próximas do vencimento e dispara um email usando o **Nodemailer**.
+
+## ⚙️ Requisitos
+
+- Node.js >= 18
+- MongoDB em execução local ou remoto
+- `.env` com as seguintes variáveis:
+
+```env
+PORT=5500
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+ARCJET_API_KEY=your_arcjet_key
+EMAIL_HOST=smtp.yourprovider.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@example.com
+EMAIL_PASS=your_email_password
+
+
 # API Routes
 
 ## Base URL: `/api/v1`

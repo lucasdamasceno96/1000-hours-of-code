@@ -4,6 +4,7 @@ import java.lang.foreign.Linker.Option;
 import java.util.List;
 import java.util.Optional;
 
+import firstspring.com.my_first_spring_boot.exceptions.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import firstspring.com.my_first_spring_boot.model.Product;
@@ -21,8 +22,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found by id"));
     }
 
     public Product createProduct(Product product) {
@@ -30,7 +31,9 @@ public class ProductService {
     }
 
     public void deleteProduct(Long id) {
-
+        if (!productRepository.existsById(id)){
+            throw new ResourceNotFoundException("Product not found by ID");
+        }
         productRepository.deleteById(id);
     }
 }
